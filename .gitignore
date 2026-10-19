@@ -1,0 +1,27 @@
+# Environment
+.env
+.env.local
+
+# Python Virtual Environment
+venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Node.js
+node_modules/
+dist/
+build/
+
+# Database
+*.db
+*.sqlite
+
+# Files
+*.zip
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
