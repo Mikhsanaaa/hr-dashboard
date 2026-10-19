@@ -12,7 +12,7 @@ export default function Employees() {
     setLoading(true);
     // Mengirim parameter search dan department ke backend
     // KODE BARU
-        axios.get('http://localhost:5000/api/employees', {
+        axios.get(`${import.meta.env.VITE_API_URL}/employees`, {
         params: {
             search: search,
             department: department

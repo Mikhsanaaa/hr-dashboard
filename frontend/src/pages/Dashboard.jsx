@@ -6,7 +6,7 @@ export default function Dashboard() {
   const [stats, setStats] = useState(null);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/employees/stats')
+    axios.get(`${import.meta.env.VITE_API_URL}/employees/stats`)
       .then((response) => setStats(response.data))
       .catch((error) => console.error(error));
   }, []);

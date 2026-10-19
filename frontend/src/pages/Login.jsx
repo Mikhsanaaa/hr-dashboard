@@ -12,7 +12,7 @@ export default function Login() {
     e.preventDefault();
     try {
       // Memanggil API Login
-      const response = await axios.post('http://localhost:5000/api/login', {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/login`, {
         email,
         password,
       });
