@@ -15,24 +15,24 @@ async function main() {
   fs.createReadStream(csvFilePath)
     .pipe(csv())
     .on('data', (data) => {
-      // Tampilkan log untuk baris pertama agar kita tahu nama kolom aslinya
-      if (results.length === 0) {
-        console.log('Contoh data baris pertama:', data);
+      // Membersihkan nama key (menghapus spasi tersembunyi jika ada)
+      const cleanData = {};
+      for (let key in data) {
+        cleanData[key.trim()] = data[key];
       }
 
-      // Menggunakan pengaman || 0 jika data kosong/undefined
       results.push({
-        employeeNumber: parseInt(data.EmployeeNumber) || 0,
-        age: parseInt(data.Age) || 0,
-        gender: data.Gender || 'Unknown',
-        department: data.Department || 'Unknown',
-        jobRole: data.JobRole || 'Unknown',
-        monthlyIncome: parseInt(data.MonthlyIncome) || 0,
-        overTime: data.OverTime || 'No',
-        attrition: data.Attrition || 'No',
-        yearsAtCompany: parseInt(data.YearsAtCompany) || 0,
-        jobSatisfaction: parseInt(data.JobSatisfaction) || 0,
-        workLifeBalance: parseInt(data.WorkLifeBalance) || 0,
+        employeeNumber: parseInt(cleanData['EmployeeNumber']) || 0,
+        age: parseInt(cleanData['Age']) || 0, // Sekarang akan membaca 'Age'
+        gender: cleanData['Gender'] || 'Unknown',
+        department: cleanData['Department'] || 'Unknown',
+        jobRole: cleanData['JobRole'] || 'Unknown',
+        monthlyIncome: parseInt(cleanData['MonthlyIncome']) || 0,
+        overTime: cleanData['OverTime'] || 'No',
+        attrition: cleanData['Attrition'] || 'No',
+        yearsAtCompany: parseInt(cleanData['YearsAtCompany']) || 0,
+        jobSatisfaction: parseInt(cleanData['JobSatisfaction']) || 0,
+        workLifeBalance: parseInt(cleanData['WorkLifeBalance']) || 0,
       });
     })
     .on('end', async () => {
