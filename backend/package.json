@@ -4,9 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js",
-    "postinstall": "prisma skills sync || exit 0"
+    "start": "prisma generate && prisma migrate deploy && node server.js",
+    "dev": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
