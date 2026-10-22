@@ -11,4 +11,6 @@ router.post('/login', authController.login);
 router.get('/employees', employeeController.getAllEmployees);
 router.get('/employees/stats', employeeController.getDashboardStats);
 
+router.get('/leaves/stats', employeeController.getLeaveStats);
+
 module.exports = router;

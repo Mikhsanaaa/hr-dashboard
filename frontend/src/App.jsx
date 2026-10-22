@@ -3,6 +3,7 @@ import MainLayout from './layouts/MainLayout';
 import Dashboard from './pages/Dashboard';
 import Employees from './pages/Employees';
 import Login from './pages/Login';
+import Leaves from './pages/Leaves';
 
 // Komponen pelindung rute
 const ProtectedRoute = ({ children }) => {
@@ -32,6 +33,7 @@ function App() {
         >
           <Route index element={<Dashboard />} />
           <Route path="employees" element={<Employees />} />
+          <Route path="leaves" element={<Leaves />} />
         </Route>
       </Routes>
     </BrowserRouter>

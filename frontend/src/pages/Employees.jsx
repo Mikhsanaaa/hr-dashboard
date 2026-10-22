@@ -38,9 +38,48 @@ export default function Employees() {
     return () => clearTimeout(delayDebounceFn);
   }, [search, department]);
 
+    const exportToCSV = () => {
+    if (employees.length === 0) return alert('Tidak ada data untuk diexport');
+
+    // 1. Tentukan Header Kolom
+    const headers = ['Employee Number', 'Job Role', 'Department', 'Age', 'Gender', 'Monthly Income', 'Attrition'];
+    
+    // 2. Format data menjadi baris CSV
+    const csvRows = employees.map(emp => [
+      emp.employeeNumber,
+      `"${emp.jobRole}"`, // Pakai kutip untuk teks agar aman jika ada koma
+      `"${emp.department}"`,
+      emp.age,
+      emp.gender,
+      emp.monthlyIncome,
+      emp.attrition
+    ]);
+
+    // 3. Gabungkan header dan data
+    const csvContent = [headers.join(','), ...csvRows.map(row => row.join(','))].join('\n');
+
+    // 4. Buat file Blob dan trigger download
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', 'Data_Karyawan_HR.csv');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div>
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">Data Karyawan</h1>
+            <div className="flex justify-between items-center mb-6">
+        <h1 className="text-3xl font-bold text-gray-800">Data Karyawan</h1>
+        <button 
+          onClick={exportToCSV}
+          className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg shadow transition"
+        >
+          📥 Export ke CSV
+        </button>
+      </div>
       
       {/* Area Filter & Search */}
       <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200 mb-6 flex flex-col md:flex-row gap-4">
