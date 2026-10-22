@@ -3,10 +3,10 @@ import Sidebar from '../components/Sidebar';
 
 export default function MainLayout() {
   return (
-    <div className="flex bg-gray-100 min-h-screen">
+    <div className="flex bg-neu-base min-h-screen font-sans text-gray-700">
       <Sidebar />
-      <div className="flex-1 p-10 overflow-y-auto">
-        <Outlet /> {/* Tempat halaman dirender */}
+      <div className="flex-1 p-8 overflow-y-auto">
+        <Outlet />
       </div>
     </div>
   );

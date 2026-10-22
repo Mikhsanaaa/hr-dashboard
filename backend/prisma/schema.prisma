@@ -8,19 +8,44 @@ datasource db {
 }
 
 model Employee {
-  id              Int      @id @default(autoincrement())
-  employeeNumber  Int      @unique
-  age             Int
-  gender          String
-  department      String
-  jobRole         String
-  monthlyIncome   Int
-  overTime        String
-  attrition       String
-  yearsAtCompany  Int
-  jobSatisfaction Int
-  workLifeBalance Int
-  leaveRequests  LeaveRequest[]
+  id                        Int      @id @default(autoincrement())
+  age                       Int
+  attrition                 String
+  businessTravel            String
+  dailyRate                 Int
+  department                String
+  distanceFromHome          Int
+  education                 Int
+  educationField            String
+  employeeCount             Int
+  employeeNumber            Int      @unique
+  environmentSatisfaction   Int
+  gender                    String
+  hourlyRate                Int
+  jobInvolvement            Int
+  jobLevel                  Int
+  jobRole                   String
+  jobSatisfaction           Int
+  maritalStatus             String
+  monthlyIncome             Int
+  monthlyRate               Int
+  numCompaniesWorked        Int
+  over18                    String
+  overTime                  String
+  percentSalaryHike         Int
+  performanceRating         Int
+  relationshipSatisfaction  Int
+  standardHours             Int
+  stockOptionLevel          Int
+  totalWorkingYears         Int
+  trainingTimesLastYear     Int
+  workLifeBalance           Int
+  yearsAtCompany            Int
+  yearsInCurrentRole        Int
+  yearsSinceLastPromotion   Int
+  yearsWithCurrManager      Int
+  
+  leaveRequests             LeaveRequest[] 
 }
 
 model User {

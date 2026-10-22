@@ -4,18 +4,28 @@ const prisma = new PrismaClient();
 // Mendapatkan semua data karyawan (dengan fitur pencarian & filter)
 exports.getAllEmployees = async (req, res) => {
   try {
-    const { department, search } = req.query;
-    
-    // Membangun kondisi filter
+    const query = req.query;
     let whereClause = {};
-    if (department) whereClause.department = department;
-    if (search) {
-      whereClause.jobRole = { contains: search, mode: 'insensitive' };
+
+    for (const key in query) {
+      if (query[key]) {
+        if (key === 'search') {
+          // Pencarian sekarang berdasarkan Employee Number (ID)
+          whereClause.employeeNumber = parseInt(query.search); 
+        }
+        else if (key === 'ageMin') whereClause.age = { ...whereClause.age, gte: parseInt(query[key]) };
+        else if (key === 'ageMax') whereClause.age = { ...whereClause.age, lte: parseInt(query[key]) };
+        else if (key === 'incomeMin') whereClause.monthlyIncome = { ...whereClause.monthlyIncome, gte: parseInt(query[key]) };
+        else if (key === 'incomeMax') whereClause.monthlyIncome = { ...whereClause.monthlyIncome, lte: parseInt(query[key]) };
+        else if (['attrition', 'businessTravel', 'department', 'educationField', 'gender', 'jobRole', 'maritalStatus', 'overTime'].includes(key)) {
+          whereClause[key] = query[key]; 
+        }
+      }
     }
 
     const employees = await prisma.employee.findMany({
       where: whereClause,
-      take: 100, // Batasi 100 untuk performa, nanti buat pagination
+      take: 2000,
     });
 
     res.json(employees);
