@@ -13,4 +13,6 @@ router.get('/employees/stats', employeeController.getDashboardStats);
 
 router.get('/leaves/stats', employeeController.getLeaveStats);
 
+router.get('/compensation/stats', employeeController.getCompensationStats);
+
 module.exports = router;

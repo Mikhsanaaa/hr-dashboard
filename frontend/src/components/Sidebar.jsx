@@ -1,5 +1,5 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, Users, CalendarDays, LogOut } from 'lucide-react';
+import { LayoutDashboard, Users, CalendarDays, Wallet, LogOut } from 'lucide-react';
 
 export default function Sidebar() {
   const location = useLocation();
@@ -10,6 +10,7 @@ export default function Sidebar() {
     { path: '/', label: 'Dashboard', icon: LayoutDashboard },
     { path: '/employees', label: 'Data Karyawan', icon: Users },
     { path: '/leaves', label: 'Manajemen Cuti', icon: CalendarDays },
+    { path: '/compensation', label: 'Kompensasi', icon: Wallet },
   ];
 
   const handleLogout = () => {

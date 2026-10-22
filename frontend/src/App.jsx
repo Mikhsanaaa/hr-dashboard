@@ -4,6 +4,7 @@ import Dashboard from './pages/Dashboard';
 import Employees from './pages/Employees';
 import Login from './pages/Login';
 import Leaves from './pages/Leaves';
+import Compensation from './pages/Compensation';
 
 // Komponen pelindung rute
 const ProtectedRoute = ({ children }) => {
@@ -34,6 +35,7 @@ function App() {
           <Route index element={<Dashboard />} />
           <Route path="employees" element={<Employees />} />
           <Route path="leaves" element={<Leaves />} />
+          <Route path="compensation" element={<Compensation />} />
         </Route>
       </Routes>
     </BrowserRouter>

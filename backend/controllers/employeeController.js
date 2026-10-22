@@ -88,3 +88,41 @@ exports.getLeaveStats = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// Fungsi untuk statistik kompensasi
+exports.getCompensationStats = async (req, res) => {
+  try {
+    // 1. Hitung Total Beban Gaji (MonthlyIncome)
+    const totalSalary = await prisma.employee.aggregate({
+      _sum: { monthlyIncome: true },
+      _avg: { monthlyIncome: true },
+    });
+
+    // 2. Hitung Gaji per Departemen
+    const salaryPerDept = await prisma.employee.groupBy({
+      by: ['department'],
+      _sum: { monthlyIncome: true },
+      _avg: { monthlyIncome: true },
+    });
+
+    // 3. Hitung Jumlah Karyawan Lembur (Untuk simulasi biaya lembur)
+    const overTimeCount = await prisma.employee.count({
+      where: { overTime: 'Yes' }
+    });
+
+    // Simulasi: Anggap biaya lembur adalah 15% dari gaji karyawan yang lembur
+    // (Kita asumsikan rata-rata gaji karyawan lembur sama dengan rata-rata gaji keseluruhan)
+    const avgSalary = salaryPerDept.reduce((acc, curr) => acc + curr._avg.monthlyIncome, 0) / salaryPerDept.length;
+    const estimatedOverTimeCost = overTimeCount * (avgSalary * 0.15);
+
+    res.json({
+      totalSalary: totalSalary._sum.monthlyIncome,
+      averageSalary: totalSalary._avg.monthlyIncome,
+      salaryPerDept,
+      overTimeCount,
+      estimatedOverTimeCost
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
